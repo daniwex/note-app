@@ -36,7 +36,7 @@ export default function OneNote({
                 <input
                   className="border-none w-1/2 placeholder:text-[#99A0AE] text-black block text-sm bg-transparent focus:outline-none"
                   placeholder="Add tags separated by commas (e.g Work, Planning)"
-                  value={noteTags.join(',')}
+                  value={noteTags || ""}
                   onChange={(e) => onChangeTag(e.target.value)}
                 />
               </div>

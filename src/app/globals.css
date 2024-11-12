@@ -26,6 +26,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.note-item:not(:last-child) {
+  border-bottom: 1px solid #ccc; /* Adjust border style as needed */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

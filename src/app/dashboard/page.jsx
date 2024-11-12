@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import OneNote from "../components/OneNote";
 import Notes from "../components/Notes";
-import {getCurrentDateFormatted} from "../lib/utility"
+import { getCurrentDateFormatted } from "../lib/utility";
 
 export default function Page() {
   const [notes, setNotes] = useState([]);
@@ -27,37 +27,39 @@ export default function Page() {
 
   const handleCreateNewNote = () => {
     const newNote = {
-      id: new Date(), 
+      id: new Date().getTime(),
       title: "",
       tags: [],
       createdAt: getCurrentDateFormatted(),
       active: false,
       body: "",
     };
-    setNotes([newNote, ...notes]);
+    setNotes([...notes, newNote]);
   };
 
-  const handleNoteClick = useCallback((noteId) => {
-    setCurrentNoteId(noteId);
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === noteId ? { ...note, active: true } : { ...note, active: false }
-      )
-    );
-  }, [notes]);
-
-  const handleChangeNote = useCallback(
-    (noteId, changes) => {
+  const handleNoteClick = useCallback(
+    (noteId) => {
+      setCurrentNoteId(noteId);
       setNotes((prevNotes) =>
         prevNotes.map((note) =>
-          note.id === noteId ? { ...note, ...changes } : note
+          note.id === noteId
+            ? { ...note, active: true }
+            : { ...note, active: false }
         )
       );
     },
-    []
+    [notes]
   );
 
-  const currentNote = notes.find(note => note.id === currentNoteId);
+  const handleChangeNote = useCallback((noteId, changes) => {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === noteId ? { ...note, ...changes } : note
+      )
+    );
+  }, []);
+
+  const currentNote = notes.find((note) => note.id === currentNoteId);
 
   return (
     <div className="overflow-y-hidden">
@@ -143,7 +145,11 @@ export default function Page() {
               }
             />
           ) : (
-            <></>
+            <div className="flex items-center justify-center h-full">
+              <p className="text-center text-[#99A0AE]">
+                Create a new Note to begin
+              </p>
+            </div>
           )}
         </div>
       </div>

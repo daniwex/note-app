@@ -1,33 +1,26 @@
 import React from "react";
 
-export default function Note({ note, onNoteClick }) {
-  if (!note.title) {
-    return (
-      <div
-        onClick={(e) => onNoteClick(note)}
-        className={`p-2 hover:cursor-pointer text-sm ${
-          note.active ? "bg-[#E0E4EA] rounded-md" : ""
-        }`}
-      >
-        <span>Unititled Note</span>
-      </div>
-    );
-  }
+export default function Note({ note, onNoteClick, index }) {
+  const { id,title, tags, active, createdAt } = note;
+
   return (
     <div
-      onClick={(e) => onNoteClick(note)}
-      className={`p-2 hover:cursor-pointer ${
-        note.active ? "bg-[#d1dcec76] rounded-md" : ""
-      }`}
+      onClick={() => onNoteClick(note)}
+      className={`p-2 hover:cursor-pointer note-item ${active ? "bg-[#E1E5EE]  rounded-md" : ""} `}
     >
-      <span className="font-bold">{note.title}</span>
-      <div className="mt-1 flex gap-x-2">
-        {note.tags.length > 0 ? (
-          note.tags.map((el, index) => <span className="text-xs bg-[#E0E4EA] p-1 rounded-md" key={index}>{el}</span>)
-        ) : (
-          <></>
-        )}
-      </div>
+      <span className="font-bold">{title || "Untitled Note"}</span>
+      {tags.length > 0 ? (
+        <div className="my-1 flex gap-x-2">
+          {tags.map((tag, index) => (
+            <span className="text-xs bg-[#E0E4EA] rounded-md" key={index}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
+      <span className="text-[10px] block">{createdAt}</span>
     </div>
   );
 }
