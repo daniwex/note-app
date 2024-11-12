@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Note({ note, onNoteClick, index }) {
-  const { id,title, tags, active, createdAt } = note;
+  const { title, tags, active, createdAt } = note;
 
   return (
     <div

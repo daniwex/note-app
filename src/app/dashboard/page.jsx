@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import OneNote from "../components/OneNote";
 import Notes from "../components/Notes";
 import { getCurrentDateFormatted } from "../lib/utility";
+import Link from "next/link";
 
 export default function Page() {
   const [notes, setNotes] = useState([]);
@@ -73,8 +74,8 @@ export default function Page() {
           />
         </div>
         <span className="px-4 sm:px-0 font-bold">All Notes</span>
-        <div className="hidden sm:flex w-1/2 justify-end">
-          <div className="relative flex items-center w-1/2">
+        <div className="hidden sm:flex w-1/2 justify-end items-center">
+          <div className="relative flex items-center w-4/6">
             <Image
               src="/assets/images/icon-search.svg"
               alt="search"
@@ -85,9 +86,18 @@ export default function Page() {
             <input
               type="search"
               placeholder="Search by title, content, or tags..."
-              className="placeholder:text-xs py-2 pr-2 border rounded-md pl-8 text-xs w-3/4 bg-transparent focus:outline-none"
+              className="placeholder:text-xs py-2 pr-2 border rounded-md pl-8 text-xs w-full bg-transparent focus:outline-none"
             />
           </div>
+          <Link href="/dashboard/setting" className="">
+            <Image
+              src="/assets/images/icon-settings.svg"
+              alt="search"
+              width="20"
+              height="20"
+              className=" mx-2"
+            />
+          </Link>
         </div>
       </div>
       <div className="sm:flex h-full" style={{ height: "calc(100vh - 60px)" }}>

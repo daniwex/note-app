@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { downloadNote } from "../lib/utility";
 
 export default function OneNote({
   noteTitle,
@@ -7,8 +8,9 @@ export default function OneNote({
   onChangeTag,
   noteModified,
   onChangeDate,
-  noteBody = "", 
-  onChangeBody
+  noteBody = "",
+  onChangeBody,
+  onDeleteNote,
 }) {
   return (
     <div className="w-full h-full flex">
@@ -60,7 +62,7 @@ export default function OneNote({
             </div>
           </div>
           <div className="h-4/5">
-            <textarea 
+            <textarea
               className="w-full text-sm focus:outline-none h-full bg-transparent p-4 resize-none"
               placeholder="Start typing your note here..."
               value={noteBody}
@@ -69,7 +71,7 @@ export default function OneNote({
           </div>
         </div>
         <div className="h-1/6 p-4">
-          <div className="border-t text-sm flex gap-x-3 pt-2 ">
+          <div className="border-t text-xs flex gap-x-3 pt-2 ">
             <button className="bg-[#335CFF] text-white py-1 px-2 rounded-md">
               Save Note
             </button>
@@ -78,6 +80,30 @@ export default function OneNote({
             </button>
           </div>
         </div>
+      </div>
+      <div className="p-4 basis-1/5">
+        <button className="text-xs flex gap-1 border w-full p-2 rounded-md mb-2">
+          <Image
+            src="/assets/images/icon-archive.svg"
+            alt="last edited"
+            width="15"
+            height="15"
+          />
+          <span>Archive Note</span>
+        </button>
+        <button className="text-xs flex gap-x-1 border w-full p-2 rounded-md mb-2">
+          <Image
+            src="/assets/images/icon-delete.svg"
+            alt="last edited"
+            width="15"
+            height="15"
+          />
+          <span>Delete Note</span>
+        </button>
+        <button className="text-xs flex gap-x-1 border w-full p-2 rounded-md" onClick={() => downloadNote({noteTitle,noteBody})}> 
+          <i className="fas fa-download"></i>
+          <span>Download Note</span>
+        </button>
       </div>
     </div>
   );
