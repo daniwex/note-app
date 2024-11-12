@@ -3,20 +3,11 @@ import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import OneNote from "../components/OneNote";
 import Notes from "../components/Notes";
+import {getCurrentDateFormatted} from "../lib/utility"
 
-export default function page() {
+export default function Page() {
   const [notes, setNotes] = useState([]);
-  let [id, setId] = useState(0);
-  const [reload, setReload] = useState(false);
-  const [currentNote, setCurrentNote] = useState();
-  const [note, setNote] = useState({
-    id: 0,
-    title: null,
-    tags: [],
-    createdAt: "",
-    active: false,
-    body: [],
-  });
+  const [currentNoteId, setCurrentNoteId] = useState(null);
 
   async function getNotes() {
     try {
@@ -30,28 +21,30 @@ export default function page() {
     }
   }
 
+  useEffect(() => {
+    getNotes();
+  }, []);
+
   const handleCreateNewNote = () => {
     const newNote = {
-      id: notes.length + 1,
+      id: new Date(), 
       title: "",
       tags: [],
-      createdAt: new Date().toISOString(),
+      createdAt: getCurrentDateFormatted(),
       active: false,
       body: "",
     };
     setNotes([newNote, ...notes]);
   };
 
-  function handleNoteClick(Note) {
+  const handleNoteClick = useCallback((noteId) => {
+    setCurrentNoteId(noteId);
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
-        note.id === Note.noteId
-          ? { ...note, active: true }
-          : { ...note, active: false }
+        note.id === noteId ? { ...note, active: true } : { ...note, active: false }
       )
     );
-    setCurrentNote(Note)
-  }
+  }, [notes]);
 
   const handleChangeNote = useCallback(
     (noteId, changes) => {
@@ -61,13 +54,13 @@ export default function page() {
         )
       );
     },
-    [notes]
+    []
   );
 
-  useEffect(() => getNotes, []);
+  const currentNote = notes.find(note => note.id === currentNoteId);
 
   return (
-    <div className="overflow-y-hidden ">
+    <div className="overflow-y-hidden">
       <div className="block sm:flex justify-between w-full sm:border-b items-center h-[60px] sm:px-4 mb-5 sm:mb-0">
         <div className="sm:hidden flex items-center bg-[#EBF1FF] mb-3 h-full px-4">
           <Image
@@ -82,7 +75,7 @@ export default function page() {
           <div className="relative flex items-center w-1/2">
             <Image
               src="/assets/images/icon-search.svg"
-              alt="logo"
+              alt="search"
               width="20"
               height="20"
               className="absolute mx-2"
@@ -105,7 +98,7 @@ export default function page() {
             >
               <Image
                 src="/assets/images/icon-plus.svg"
-                alt="logo"
+                alt="create new note"
                 width="15"
                 height="15"
                 className=" stroke-white"
@@ -116,7 +109,7 @@ export default function page() {
               <div>
                 <Notes
                   notes={notes}
-                  onNoteClick={(note) => handleNoteClick(note)}
+                  onNoteClick={(note) => handleNoteClick(note.id)}
                 />
               </div>
             ) : (

@@ -18,7 +18,7 @@ export default function OneNote({
             <input
               type="text"
               placeholder="Enter a title..."
-              className="border-none placeholder:font-bold placeholder:text-black font-bold bg-transparent focus:outline-none w-full"
+              className="border-none placeholder:font-bold text-black placeholder:text-black font-bold bg-transparent focus:outline-none w-full"
               value={noteTitle || ""}
               onChange={(e) => onChangeTitle(e.target.value)}
             />
@@ -34,7 +34,7 @@ export default function OneNote({
                   <span>Tags</span>
                 </div>
                 <input
-                  className="border-none w-1/2 text-[#99A0AE] block text-sm bg-transparent focus:outline-none"
+                  className="border-none w-1/2 placeholder:text-[#99A0AE] text-black block text-sm bg-transparent focus:outline-none"
                   placeholder="Add tags separated by commas (e.g Work, Planning)"
                   value={noteTags.join(',')}
                   onChange={(e) => onChangeTag(e.target.value)}
@@ -51,7 +51,7 @@ export default function OneNote({
                   <span>Last edited</span>
                 </div>
                 <input
-                  className="border-none w-1/2 text-[#99A0AE] block text-sm bg-transparent focus:outline-none"
+                  className="border-none w-1/2 placeholder:text-[#99A0AE] text-black block text-sm bg-transparent focus:outline-none"
                   placeholder="Not yet saved"
                   value={noteModified || ""}
                   onChange={(e) => onChangeDate(e.target.value)}
