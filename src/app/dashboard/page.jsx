@@ -91,7 +91,7 @@ export default function Page() {
         </div>
       </div>
       <div className="sm:flex h-full" style={{ height: "calc(100vh - 60px)" }}>
-        <div className="w-full sm:block sm:basis-1/5 sm:border-r h-full">
+        <div className="w-full sm:block sm:basis-2/6 sm:border-r h-full">
           <div className="sm:flex flex-col p-4">
             <button
               className="text-xs rounded-full absolute bottom-14 right-5 
