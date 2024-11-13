@@ -16,6 +16,12 @@ const config: Config = {
       colors:{
         bgLight100:"#F3F5F8",
         blue500:"#335CFF"
+      },
+      screens: {
+        'sm':'650px',
+        'md':'768px',
+        'lg':'1550px',
+        'xl':'1950px'
       }
     },
   },
